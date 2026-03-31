@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongqi | Контакты и тест-драйв</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            color: #e5e5e5;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .background-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 70%, rgba(180, 130, 50, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(100, 100, 100, 0.1) 0%, transparent 50%),
+                        #0a0a0a;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 40px;
+            border-bottom: 1px solid rgba(200, 160, 80, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            filter: drop-shadow(0 0 8px rgba(200, 160, 80, 0.4));
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #c8a050;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            font-weight: 200;
+            color: #666;
+            letter-spacing: 2px;
+            font-size: 14px;
+            display: block;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 40px;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #c8a050;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #c8a050;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #c8a050;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .page-title span {
+            color: #c8a050;
+            font-weight: 400;
+        }
+
+        .title-underline {
+            width: 80px;
+            height: 2px;
+            background: #c8a050;
+            margin-bottom: 60px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+
+        .contact-info {
+            background: #111;
+            border: 1px solid #222;
+            padding: 40px;
+        }
+
+        .info-header {
+            font-size: 20px;
+            color: #c8a050;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .contact-item {
+            margin-bottom: 25px;
+            border-bottom: 1px dotted #333;
+            padding-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .contact-icon {
+            font-size: 24px;
+            min-width: 40px;
+            color: #c8a050;
+        }
+
+        .contact-detail {
+            flex: 1;
+        }
+
+        .contact-label {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .contact-value {
+            font-size: 18px;
+            color: #ddd;
+        }
+
+        .contact-value a {
+            color: #c8a050;
+            text-decoration: none;
+            border-bottom: 1px dotted #c8a050;
+        }
+
+        .form-container {
+            background: #111;
+            border: 1px solid #222;
+            padding: 40px;
+        }
+
+        .form-header {
+            font-size: 20px;
+            color: #c8a050;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: #aaa;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            padding: 10px 0;
+            color: white;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-bottom-color: #c8a050;
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+            border: 1px solid #333;
+            padding: 15px;
+        }
+
+        .submit-button {
+            background: transparent;
+            border: 1px solid #c8a050;
+            padding: 15px 40px;
+            color: #c8a050;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: 0.4s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-button:hover {
+            background: #c8a050;
+            color: #0a0a0a;
+        }
+
+        .showroom-card {
+            grid-column: span 2;
+            background: linear-gradient(145deg, #111 0%, #0a0a0a 100%);
+            border: 1px solid #c8a05020;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .showroom-title {
+            color: #c8a050;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .showroom-address {
+            color: #ccc;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .showroom-hours {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 80px auto;
+            background: transparent;
+            border: 1px solid #c8a050;
+            padding: 15px 40px;
+            color: #c8a050;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 14px;
+            transition: 0.4s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(200,160,80,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button:hover {
+            background: #c8a050;
+            color: #0a0a0a;
+        }
+
+        .footer {
+            border-top: 1px solid #222;
+            padding-top: 40px;
+            margin-top: 80px;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #c8a050;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <span class="logo-icon">⫸</span>
+                <div class="logo-text">HONGQI<span>КРАСНОЕ ЗНАМЯ</span></div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="collection.html">Коллекция</a>
+                <a href="history.html">История</a>
+                <a href="page2.html"class="active">Контакты</a>
+            </div>
+        </div>
+
+        <div class="page-title">
+            Контакты
+        </div>
+        <div class="title-underline"></div>
+
+        <div class="contact-grid">
+            <div class="contact-info">
+                <div class="info-header">Связь с представительством</div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-detail">
+                        <div class="contact-label">Адрес шоурума</div>
+                        <div class="contact-value">Пресненская наб., 12, Москва<br>Башня Федерация, 35 этаж</div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-detail">
+                        <div class="contact-label">Телефон отдела продаж</div>
+                        <div class="contact-value"><a href="tel:+76668888888">+7 (666) 888-88-88</a></div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-detail">
+                        <div class="contact-label">Email для тест-драйвов</div>
+                        <div class="contact-value"><a href="mailto:testdrive@hongqi.ru">testdrive@hongqi.ru</a></div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">⏰</div>
+                    <div class="contact-detail">
+                        <div class="contact-label">Режим работы</div>
+                        <div class="contact-value">Пн–Пт 9:00–21:00<br>Сб–Вс 10:00–18:00</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <div class="form-header">Запись на тест-драйв</div>
+                <form>
+                    <div class="form-group">
+                        <label class="form-label">Имя</label>
+                        <input type="text" class="form-control" placeholder="Артем">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="artem@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Телефон</label>
+                        <input type="text" class="form-control" placeholder="+7 (999) 123-45-67">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Интересующая модель</label>
+                        <textarea class="form-control" placeholder="H6, HS7, E-HS9 или другая..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Отправить заявку</button>
+                </form>
+                <p style="color: #555; font-size: 12px; margin-top: 20px; text-align: center;">* Все поля обязательны для заполнения. Данные точно передаются третьим лицам. После отправки ваши данные сольются в открытую сеть.</p>
+            </div>
+        </div>
+
+        <div class="showroom-card">
+            <div>
+                <div class="showroom-title">Премиальный шоурум в Москва-Сити</div>
+                <div class="showroom-address">Пресненская набережная, 12 — Башня Федерация</div>
+                <div class="showroom-hours">Ежедневно с 10:00 до 20:00, вход по предварительной записи.</div>
+            </div>
+            <div>
+                <div class="showroom-title">Как добраться</div>
+                <div class="showroom-hours">Метро «Деловой центр» / «Выставочная», выход к башне Федерация. Парковка для гостей — 2 часа бесплатно.</div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">← Вернуться на главную</a>
+
+        <div class="footer">
+            <div>© HONGQI 2026 — эксклюзивное представительство</div>
+            <div>
+                <a href="#">Правовая информация</a> • 
+                <a href="index.html">О бренде</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

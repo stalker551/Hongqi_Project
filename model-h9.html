@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongqi H9 | Флагманский седан</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            color: #e5e5e5;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .background-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 70% 30%, rgba(180, 130, 50, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 70%, rgba(100, 100, 100, 0.1) 0%, transparent 50%),
+                        #0a0a0a;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 40px;
+            border-bottom: 1px solid rgba(200, 160, 80, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            filter: drop-shadow(0 0 8px rgba(200, 160, 80, 0.4));
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #c8a050;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            font-weight: 200;
+            color: #666;
+            letter-spacing: 2px;
+            font-size: 14px;
+            display: block;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 40px;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #c8a050;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #c8a050;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* навигационная цепочка */
+        .breadcrumb {
+            margin-bottom: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .breadcrumb a {
+            color: #c8a050;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb span {
+            color: #888;
+        }
+
+        .model-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .model-title {
+            font-size: 56px;
+            font-weight: 300;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .model-tagline {
+            color: #c8a050;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .model-description {
+            color: #aaa;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* Блок с изображением */
+        .model-image-container {
+            .model-image-container {
+            background: transparent;  
+            border: none;            
+            border-radius: 0;        
+            padding: 0;              
+            position: relative;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: none;        
+            }
+        }
+
+        .model-image {
+            max-width: 100%;
+            max-height: 350px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+            transition: transform 0.5s ease;
+            transform: translateX(70px);
+        }
+
+        .model-image:hover {
+            transform: translateX(70px) scale(1.02);
+        }
+
+        /* Ключевые характеристики */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+            background: rgba(20,20,20,0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid #222;
+            padding: 30px;
+        }
+
+        .spec-item {
+            text-align: center;
+            border-right: 1px solid #333;
+            padding-right: 20px;
+        }
+
+        .spec-item:last-child {
+            border-right: none;
+        }
+
+        .spec-value {
+            font-size: 36px;
+            font-weight: 300;
+            color: #c8a050;
+            line-height: 1.2;
+        }
+
+        .spec-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        /* Детальные характеристики */
+        .details-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .details-card {
+            background: #111;
+            border: 1px solid #222;
+            padding: 30px;
+        }
+
+        .details-title {
+            color: #c8a050;
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+        }
+
+        .details-list {
+            list-style: none;
+        }
+
+        .details-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dotted #333;
+        }
+
+        .details-list li:last-child {
+            border-bottom: none;
+        }
+
+        .detail-name {
+            color: #aaa;
+            font-size: 15px;
+        }
+
+        .detail-value {
+            color: #fff;
+            font-weight: 400;
+        }
+
+        /* Описание модели */
+        .description-block {
+            background: #0c0c0c;
+            border: 1px solid #222;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .description-block p {
+            color: #bbb;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .description-block p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            color: #c8a050;
+            font-weight: 400;
+        }
+
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .gallery-item {
+            background: #111;
+            border: 1px solid #222;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover {
+            border-color: #c8a050;
+            color: #c8a050;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 80px auto;
+            background: transparent;
+            border: 1px solid #c8a050;
+            padding: 15px 40px;
+            color: #c8a050;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 14px;
+            transition: 0.4s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button:hover {
+            background: #c8a050;
+            color: #0a0a0a;
+        }
+
+        .footer {
+            border-top: 1px solid #222;
+            padding-top: 40px;
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #c8a050;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <span class="logo-icon">⫸</span>
+                <div class="logo-text">HONGQI<span>КРАСНОЕ ЗНАМЯ</span></div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="collection.html">Коллекция</a>
+                <a href="history.html">История</a>
+                <a href="page2.html">Контакты</a>
+            </div>
+        </div>
+
+        <!-- навигационная цепочка -->
+        <div class="breadcrumb">
+            <a href="index.html">Главная</a> / <span>H9 Executive</span>
+        </div>
+
+        <!-- главная инфа. hero -->
+        <div class="model-hero">
+            <div>
+                <div class="model-title">
+                    H9 Executive
+                </div>
+                <div class="model-tagline">Флагманский представительский седан</div>
+                <div class="model-description">
+                    Вершина инженерной мысли Hongqi. Седан класса люкс, сочетающий элегантность восточных традиций с передовыми технологиями. Создан для тех, кто ценит безупречный стиль и абсолютный комфорт.
+                </div>
+            </div>
+            <div class="model-image-container">
+                <img src="h9.png" alt="Hongqi H9 Executive" class="model-image">
+            </div>
+        </div>
+
+        <!-- Ключевые характеристики -->
+        <div class="specs-grid">
+            <div class="spec-item">
+                <div class="spec-value">3.0L</div>
+                <div class="spec-label">Двигатель V6</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">326</div>
+                <div class="spec-label">Лошадиных сил</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">6.5с</div>
+                <div class="spec-label">0-100 км/ч</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-value">₽9.99M</div>
+                <div class="spec-label">от</div>
+            </div>
+        </div>
+
+        <!-- Детальные характеристики в две колонки -->
+        <div class="details-section">
+            <div class="details-card">
+                <div class="details-title">Двигатель и трансмиссия</div>
+                <ul class="details-list">
+                    <li><span class="detail-name">Тип двигателя</span><span class="detail-value">3.0L V6 турбо</span></li>
+                    <li><span class="detail-name">Мощность</span><span class="detail-value">326 л.с. при 5500 об/мин</span></li>
+                    <li><span class="detail-name">Крутящий момент</span><span class="detail-value">450 Нм при 1800-4000 об/мин</span></li>
+                    <li><span class="detail-name">Коробка передач</span><span class="detail-value">8-ступ. автомат</span></li>
+                    <li><span class="detail-name">Привод</span><span class="detail-value">Полный (4WD)</span></li>
+                </ul>
+            </div>
+            <div class="details-card">
+                <div class="details-title">Габариты и ходовая</div>
+                <ul class="details-list">
+                    <li><span class="detail-name">Длина / Ширина / Высота</span><span class="detail-value">5140 / 1904 / 1487 мм</span></li>
+                    <li><span class="detail-name">Колесная база</span><span class="detail-value">3060 мм</span></li>
+                    <li><span class="detail-name">Клиренс (пневмоподвеска)</span><span class="detail-value">188-248 мм</span></li>
+                    <li><span class="detail-name">Объем багажника</span><span class="detail-value">370 л</span></li>
+                    <li><span class="detail-name">Снаряженная масса</span><span class="detail-value">~2000 кг</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Описание модели -->
+        <div class="description-block">
+            <p><span class="highlight">Hongqi H9 Executive</span> — это обновленная версия флагманского седана, представленная в России в 2025 году. Автомобиль пережил серьезный рестайлинг: изменены передний и задний бамперы, решетка радиатора, а в салоне появились обновленные дисплеи.</p>
+            
+            <p>Главное техническое изменение — переход на <span class="highlight">3.0-литровый турбомотор V6 мощностью 326 л.с.</span> в сочетании с 8-ступенчатым автоматом и <span class="highlight">полным приводом</span>. Предыдущая версия была заднеприводной и оснащалась 2.0-литровым двигателем. Разгон до 100 км/ч теперь занимает всего 6,5 секунды.</p>
+            
+            <p>Пневматическая подвеска позволяет регулировать клиренс в диапазоне от 188 до 248 мм. В оснащении появились электродоводчики дверей и беспроводная зарядка для второго ряда сидений]. Цена на обновленную версию стартует от 9,99 млн рублей.</p>
+        </div>
+
+        <a href="index.html" class="back-button">← Вернуться на главную</a>
+
+        <div class="footer">
+            <div>© HONGQI 2026 — премиальный китайский автопром</div>
+            <div>
+                <a href="#">Правовая информация</a> • 
+                <a href="page2.html">Контакты</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

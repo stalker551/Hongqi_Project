@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongqi | Коллекция</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            color: #e5e5e5;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .background-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 70% 30%, rgba(180, 130, 50, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 70%, rgba(100, 100, 100, 0.1) 0%, transparent 50%),
+                        #0a0a0a;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 40px;
+            border-bottom: 1px solid rgba(200, 160, 80, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            filter: drop-shadow(0 0 8px rgba(200, 160, 80, 0.4));
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #c8a050;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            font-weight: 200;
+            color: #666;
+            letter-spacing: 2px;
+            font-size: 14px;
+            display: block;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 40px;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #c8a050;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #c8a050;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .page-header {
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .page-title span {
+            color: #c8a050;
+            font-weight: 400;
+        }
+
+        .title-underline {
+            width: 323px;
+            height: 2px;
+            background: #c8a050;
+            margin-bottom: 30px;
+        }
+
+        .collection-intro {
+            color: #aaa;
+            font-size: 18px;
+            max-width: 700px;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .collection-item {
+            background: #111;
+            border: 1px solid #222;
+            padding: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .collection-item:hover {
+            border-color: #c8a050;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .collection-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background-color: #c8a050;
+            transition: height 0.4s ease;
+        }
+
+        .collection-item:hover::before {
+            height: 100%;
+        }
+
+        .model-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #c8a050;
+            font-size: 12px;
+            letter-spacing: 2px;
+            background: rgba(200,160,80,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .collection-thumb {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+            transition: transform 0.4s ease;
+        }
+
+        .collection-item:hover .collection-thumb {
+            transform: scale(1.05);
+        }
+
+        .collection-name {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        .collection-type {
+            color: #888;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .collection-specs {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .collection-specs li {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .collection-specs li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: #c8a050;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #333;
+        }
+
+        .color-dot.black { background: #1a1a1a; }
+        .color-dot.white { background: #f0f0f0; }
+        .color-dot.gray { background: #6b6b6b; }
+        .color-dot.blue { background: #1e3a5f; }
+        .color-dot.gold { background: #c8a050; }
+        .color-dot.red { background: #8b0000; }
+
+        .model-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #c8a050;
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+
+        .model-link:hover {
+            opacity: 1;
+            letter-spacing: 3px;
+        }
+
+        .colors-section {
+            margin: 80px 0;
+            padding: 40px;
+            background: #0c0c0c;
+            border: 1px solid #222;
+        }
+
+        .colors-title {
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #c8a050;
+        }
+
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 15px;
+        }
+
+        .color-item {
+            text-align: center;
+        }
+
+        .color-sample {
+            width: 100%;
+            height: 60px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            border: 1px solid #333;
+        }
+
+        .color-name {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 80px auto;
+            background: transparent;
+            border: 1px solid #c8a050;
+            padding: 15px 40px;
+            color: #c8a050;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 14px;
+            transition: 0.4s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button:hover {
+            background: #c8a050;
+            color: #0a0a0a;
+        }
+
+        .footer {
+            border-top: 1px solid #222;
+            padding-top: 40px;
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #c8a050;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <span class="logo-icon">⫸</span>
+                <div class="logo-text">HONGQI<span>КРАСНОЕ ЗНАМЯ</span></div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="collection.html" style="color: #c8a050;">Коллекция</a>
+                <a href="history.html">История</a>
+                <a href="page2.html">Контакты</a>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="page-title">
+                КОЛЛЕКЦИЯ 
+            </div>
+            <div class="title-underline"></div>
+            <div class="collection-intro">
+                Изысканная линейка премиальных автомобилей, сочетающих восточные традиции и передовые технологии. Каждая модель — произведение искусства.
+            </div>
+        </div>
+        <div class="collection-grid">
+
+            <div class="collection-item" onclick="location.href='model-h9.html';">
+                <span class="model-badge">ФЛАГМАН</span>
+                <img src="h9.png" alt="H9 Executive" class="collection-thumb">
+                <div class="collection-name">H9 Executive</div>
+                <div class="collection-type">Премиальный седан</div>
+                <ul class="collection-specs">
+                    <li>3.0L V6 326 л.с. / 4WD</li>
+                    <li>Пневмоподвеска 188-248 мм</li>
+                    <li>Разгон 6.5 с</li>
+                </ul>
+                <div class="color-palette">
+                    <div class="color-dot black" title="Phantom Black"></div>
+                    <div class="color-dot white" title="Glacier White"></div>
+                    <div class="color-dot gold" title="Champion Gold"></div>
+                    <div class="color-dot blue" title="Aurora Blue"></div>
+                </div>
+                <span class="model-link">ИЗУЧИТЬ →</span>
+            </div>
+
+        
+            <div class="collection-item" onclick="location.href='model-h6.html';">
+                <span class="model-badge">СПОРТ</span>
+                <img src="h6.png" alt="H6 Sport" class="collection-thumb">
+                <div class="collection-name">H6 Sport</div>
+                <div class="collection-type">Спортивный лифтбек</div>
+                <ul class="collection-specs">
+                    <li>2.0L турбо 245 л.с. / FWD</li>
+                    <li>Cd 0.27, 5 режимов ДХО</li>
+                    <li>Разгон 6.8 с</li>
+                </ul>
+                <div class="color-palette">
+                    <div class="color-dot red" title="Hongqi Red"></div>
+                    <div class="color-dot black" title="Polar Night Black"></div>
+                    <div class="color-dot gray" title="Quantum Silver"></div>
+                </div>
+                <span class="model-link">ИЗУЧИТЬ →</span>
+            </div>
+
+            <div class="collection-item" onclick="location.href='model-h5.html';">
+                <img src="h5.png" alt="H5" class="collection-thumb">
+                <div class="collection-name">H5</div>
+                <div class="collection-type">Бизнес-седан</div>
+                <ul class="collection-specs">
+                    <li>1.5T / 2.0T / гибрид</li>
+                    <li>Суммарный запас хода до 1600 км</li>
+                    <li>Аудио Dynaudio</li>
+                </ul>
+                <div class="color-palette">
+                    <div class="color-dot white" title="Alpine White"></div>
+                    <div class="color-dot black" title="Phantom Black"></div>
+                    <div class="color-dot gray" title="Quantum Silver"></div>
+                </div>
+                <span class="model-link">ИЗУЧИТЬ →</span>
+            </div>
+
+            <div class="collection-item" onclick="location.href='model-hs7.html';">
+                <span class="model-badge">7 МЕСТ</span>
+                <img src="hs7.png" alt="HS7 Premium" class="collection-thumb">
+                <div class="collection-name">HS7 Premium</div>
+                <div class="collection-type">Премиальный кроссовер</div>
+                <ul class="collection-specs">
+                    <li>2.0L гибрид 245 л.с. / AWD</li>
+                    <li>7 мест, кожа Nappa</li>
+                    <li>Камера для наблюдения</li>
+                </ul>
+                <div class="color-palette">
+                    <div class="color-dot black" title="Polar Night Black"></div>
+                    <div class="color-dot white" title="Glacier White"></div>
+                    <div class="color-dot brown" style="background:#5e4b3c;" title="Magma Brown"></div>
+                </div>
+                <span class="model-link">ИЗУЧИТЬ →</span>
+            </div>
+
+            <div class="collection-item" onclick="location.href='model-hs5.html';">
+                <img src="hs5.png" alt="HS5" class="collection-thumb">
+                <div class="collection-name">HS5</div>
+                <div class="collection-type">Компактный кроссовер</div>
+                <ul class="collection-specs">
+                    <li>2.0L турбо, 224 л.с.</li>
+                    <li>Длина 4760 мм</li>
+                    <li>Передний / полный привод</li>
+                </ul>
+                <div class="color-palette">
+                    <div class="color-dot black" title="Phantom Black"></div>
+                    <div class="color-dot blue" title="Laser Blue"></div>
+                    <div class="color-dot white" title="Pearl White"></div>
+                </div>
+                <span class="model-link">ИЗУЧИТЬ →</span>
+            </div>
+
+            <div class="collection-item" onclick="location.href='model-ehs9.html';">
+                <span class="model-badge">ЭЛЕКТРО</span>
+                <img src="ehs9.png" alt="E-HS9" class="collection-thumb">
+                <div class="collection-name">E-HS9</div>
+                <div class="collection-type">Электрический флагман</div>
+                <ul class="collection-specs">
+                    <li>551 л.с. / AWD</li>
+                    <li>Батарея 120 кВт·ч, запас 548 км</li>
+                    <li>Капитанские кресла</li>
+                </ul>
+                <div class="color-palette">
+                    <div class="color-dot black" title="Polar Night Black"></div>
+                    <div class="color-dot white" title="Glacier White"></div>
+                    <div class="color-dot blue" title="Laser Blue"></div>
+                    <div class="color-dot gold" title="Champion Gold"></div>
+                </div>
+                <span class="model-link">ИЗУЧИТЬ →</span>
+            </div>
+        </div>
+
+        <div class="colors-section">
+            <div class="colors-title">ЦВЕТОВАЯ ГАММА</div>
+            <div class="colors-grid">
+                <div class="color-item">
+                    <div class="color-sample" style="background: #1a1a1a;"></div>
+                    <div class="color-name">Polar Night Black</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-sample" style="background: #f0f0f0;"></div>
+                    <div class="color-name">Glacier White</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-sample" style="background: #6b6b6b;"></div>
+                    <div class="color-name">Quantum Silver</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-sample" style="background: #1e3a5f;"></div>
+                    <div class="color-name">Aurora Blue</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-sample" style="background: #c8a050;"></div>
+                    <div class="color-name">Champion Gold</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-sample" style="background: #8b0000;"></div>
+                    <div class="color-name">Hongqi Red</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-sample" style="background: #5e4b3c;"></div>
+                    <div class="color-name">Magma Brown</div>
+                </div>
+                <div class="color-item">
+                    <div class="color-sample" style="background: #556b2f;"></div>
+                    <div class="color-name">Green-Black</div>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">← НА ГЛАВНУЮ</a>
+
+        <div class="footer">
+            <div>© HONGQI 2026 — эксклюзивное представительство</div>
+            <div>
+                <a href="#">Правовая информация</a> • 
+                <a href="index.html">О бренде</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

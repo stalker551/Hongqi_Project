@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hongqi | История</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            color: #e5e5e5;
+            line-height: 1.6;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        .background-glow {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 70% 30%, rgba(180, 130, 50, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 70%, rgba(100, 100, 100, 0.1) 0%, transparent 50%),
+                        #0a0a0a;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0 40px;
+            border-bottom: 1px solid rgba(200, 160, 80, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+            filter: drop-shadow(0 0 8px rgba(200, 160, 80, 0.4));
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 400;
+            letter-spacing: 6px;
+            color: #c8a050;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            font-weight: 200;
+            color: #666;
+            letter-spacing: 2px;
+            font-size: 14px;
+            display: block;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 40px;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #c8a050;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #c8a050;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #c8a050;
+        }
+
+        .page-header {
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .page-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .intro-text {
+            color: #aaa;
+            font-size: 18px;
+            max-width: 700px;
+            margin-bottom: 60px;
+            font-style: italic;
+            border-left: 3px solid #c8a050;
+            padding-left: 20px;
+        }
+
+        .history-creative {
+            position: relative;
+            margin: 100px 0;
+        }
+
+        .history-creative::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, #c8a050, #c8a050, transparent);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .history-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .history-year-block {
+            width: 120px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .history-item:nth-child(odd) .history-year-block {
+            transform: translateX(400px);
+        }
+
+        .history-item:nth-child(even) .history-year-block {
+            transform: translateX(-430px);
+        }
+
+        .history-year {
+            font-size: 64px;
+            font-weight: 300;
+            color: #c8a050;
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(200, 160, 80, 0.3);
+        }
+
+        .history-year-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .history-content {
+            width: 40%;
+            background: #111;
+            border: 1px solid #222;
+            padding: 30px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .history-content:hover {
+            border-color: #c8a050;
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(200, 160, 80, 0.2);
+        }
+
+        .history-item:nth-child(odd) .history-content::before {
+            content: '◀';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #c8a050;
+            font-size: 20px;
+            opacity: 0.5;
+        }
+
+        .history-item:nth-child(even) .history-content::before {
+            content: '▶';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #c8a050;
+            font-size: 20px;
+            opacity: 0.5;
+        }
+
+        .history-title {
+            font-size: 24px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .history-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 1px;
+            background: #c8a050;
+        }
+
+        .history-description {
+            color: #bbb;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .history-badge {
+            display: inline-block;
+            background: rgba(200,160,80,0.15);
+            color: #c8a050;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            border: 1px solid rgba(200,160,80,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .stats-creative {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 120px 0;
+            padding: 40px;
+            background: linear-gradient(145deg, #0c0c0c 0%, #111 100%);
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-creative::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(200,160,80,0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .stat-creative-item {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-creative-number {
+            font-size: 56px;
+            font-weight: 300;
+            color: #c8a050;
+            margin-bottom: 10px;
+            text-shadow: 0 0 30px rgba(200, 160, 80, 0.3);
+        }
+
+        .stat-creative-label {
+            color: #888;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 80px auto;
+            background: transparent;
+            border: 1px solid #c8a050;
+            padding: 15px 40px;
+            color: #c8a050;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 14px;
+            transition: 0.4s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(200,160,80,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button:hover {
+            background: #c8a050;
+            color: #0a0a0a;
+        }
+
+        .footer {
+            border-top: 1px solid #222;
+            padding-top: 40px;
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer a {
+            color: #777;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #c8a050;
+        }
+
+        /* Адаптация */
+        @media (max-width: 900px) {
+            .history-item {
+                flex-direction: column !important;
+                gap: 20px;
+            }
+            
+            .history-content {
+                width: 100%;
+            }
+            
+            .history-item .history-content::before {
+                display: none;
+            }
+            
+            .history-creative::before {
+                left: 30px;
+            }
+            
+            .stats-creative {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-glow"></div>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <span class="logo-icon">⫸</span>
+                <div class="logo-text">HONGQI<span>КРАСНОЕ ЗНАМЯ</span></div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Главная</a>
+                <a href="collection.html">Коллекция</a>
+                <a href="history.html" class="active">История</a>
+                <a href="page2.html">Контакты</a>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="page-title">ИСТОРИЯ <span>HONGQI</span></div>
+            <div class="title-underline"></div>
+            <div class="intro-text">
+                «Красное знамя» — бренд, рожденный для лидеров и прошедший путь от закрытых лимузинов до мирового премиума.
+            </div>
+        </div>
+
+        <div class="history-creative">
+            <div class="history-item">
+                <div class="history-year-block">
+                    <div class="history-year">1953</div>
+                    <div class="history-year-label">основание</div>
+                </div>
+                <div class="history-content">
+                    <div class="history-title">Рождение FAW</div>
+                    <div class="history-description">Первый Автомобильный Концерн начинает работу. Через 5 лет здесь родится Hongqi.</div>
+                    <span class="history-badge">ПРЕДЫСТОРИЯ</span>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-year-block">
+                    <div class="history-year">1958</div>
+                    <div class="history-year-label">рождение</div>
+                </div>
+                <div class="history-content">
+                    <div class="history-title">Красное знамя</div>
+                    <div class="history-description">По личному указу Мао Цзэдуна создан бренд Hongqi — символ китайского автопрома.</div>
+                    <span class="history-badge">РОЖДЕНИЕ</span>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-year-block">
+                    <div class="history-year">1959</div>
+                    <div class="history-year-label">первенец</div>
+                </div>
+                <div class="history-content">
+                    <div class="history-title">CA72</div>
+                    <div class="history-description">Первый люксовый седан. Выпущено всего 203 экземпляра для высшего руководства.</div>
+                    <span class="history-badge">ПЕРВАЯ МОДЕЛЬ</span>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-year-block">
+                    <div class="history-year">1966</div>
+                    <div class="history-year-label">легенда</div>
+                </div>
+                <div class="history-content">
+                    <div class="history-title">CA770</div>
+                    <div class="history-description">Модель-долгожитель, выпускавшаяся 33 года. Символ китайской элиты.</div>
+                    <span class="history-badge">ДОЛГОЖИТЕЛЬ</span>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-year-block">
+                    <div class="history-year">2014</div>
+                    <div class="history-year-label">технология</div>
+                </div>
+                <div class="history-content">
+                    <div class="history-title">L5 V12</div>
+                    <div class="history-description">Первый китайский автомобиль с двигателем V12. Ручная сборка под заказ.</div>
+                    <span class="history-badge">V12</span>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-year-block">
+                    <div class="history-year">2018</div>
+                    <div class="history-year-label">стиль</div>
+                </div>
+                <div class="history-content">
+                    <div class="history-title">Дизайн от Rolls-Royce</div>
+                    <div class="history-description">Джайлс Тейлор создает новый облик бренда. Рождается стиль «водопад».</div>
+                </div>
+            </div>
+
+            <div class="history-item">
+                <div class="history-year-block">
+                    <div class="history-year">2023</div>
+                    <div class="history-year-label">россия</div>
+                </div>
+                <div class="history-content">
+                    <div class="history-title">Выход на российский рынок</div>
+                    <div class="history-description">За первый год продано более 3300 автомобилей, открыто 22 дилерских центра.</div>
+                    <span class="history-badge">РОССИЯ</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-creative">
+            <div class="stat-creative-item">
+                <div class="stat-creative-number">66</div>
+                <div class="stat-creative-label">лет истории</div>
+            </div>
+            <div class="stat-creative-item">
+                <div class="stat-creative-number">15</div>
+                <div class="stat-creative-label">стран</div>
+            </div>
+            <div class="stat-creative-item">
+                <div class="stat-creative-number">13+</div>
+                <div class="stat-creative-label">моделей</div>
+            </div>
+            <div class="stat-creative-item">
+                <div class="stat-creative-number">22</div>
+                <div class="stat-creative-label">дилера в РФ</div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">← НА ГЛАВНУЮ</a>
+
+        <div class="footer">
+            <div><a href="secret.html" style="color: inherit; text-decoration: none;">©</a> HONGQI 2026 — история в деталях</div>
+            <div>
+                <a href="#">Политика</a> • 
+                <a href="page2.html">Контакты</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
